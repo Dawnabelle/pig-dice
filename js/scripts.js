@@ -1,10 +1,4 @@
-// back end logic
-// var player1Score = 0;
-// var player2Score = 0;
-// var player1Overall = [];
-// var player2Overall = [];
-// var player1Total = 0;
-// var player2Total = 0;
+
 var player1 = new Player("Player1", []);
 var player2 = new Player("Player2", []);
 
@@ -26,15 +20,75 @@ Player.prototype.roll = function() {
 
 Player.prototype.serialize = function(number) {
   this.scorearray.push(this.turnscore);
-    this.turnscore = 0;
+  this.turnscore = 0;
 }
 
 Player.prototype.addup = function(array){
   this.totalscore = 0;
-  array.forEach(function (value) {
-    this.totalscore += value;
-  });
+  for (var i = 0; i < array.length; i++) {
+    this.totalscore += array[i];
+  }
 }
+
+
+// ui logic
+$(document).ready(function(){
+  $(".p1Roll").click(function(event){
+    event.preventDefault();
+
+      player1.roll();
+
+      if (player1.turnscore === 0){
+        $("#player-1").hide();
+        $("#player-2").show();
+      }
+      $('.p1Score').text(player1.turnscore);
+        console.log(player1);
+  })
+  $(".p1Hold").click(function(event){
+    event.preventDefault();
+    player1.serialize(player1.turnscore);
+    player1.addup(player1.scorearray);
+    player1.turnscore = 0;
+    $("#player-1").hide();
+    $("#player-2").show();
+    $(".p1Score").text("0")
+    $(".p1Game").text(player1.totalscore);
+      console.log(player1);
+  })
+
+  $(".p2Roll").click(function(event){
+    event.preventDefault();
+      player2.roll();
+    if (player2.turnscore === 0){
+      $("#player-2").hide();
+      $("#player-1").show();
+    }
+    $('.p2Score').text(player2.turnscore);
+    console.log(player2);
+  })
+  $(".p2Hold").click(function(event){
+    event.preventDefault();
+    player2.serialize(player2.turnscore);
+    player2.addup(player2.scorearray);
+    $("#player-2").hide();
+    $("#player-1").show();
+    $(".p2Score").text("0")
+    $(".p2Game").text(player2.totalscore);
+    console.log(player2);
+  })  
+});
+
+// back end logic
+// var player1Score = 0;
+// var player2Score = 0;
+// var player1Overall = [];
+// var player2Overall = [];
+// var player1Total = 0;
+// var player2Total = 0;
+
+
+
 
 // function roll1() {
 //  var result = Math.floor((Math.random() * 6) + 1);
@@ -77,46 +131,3 @@ Player.prototype.addup = function(array){
 //   player2Total += value;
 //   });
 // }
-// ui logic
-$(document).ready(function(){
-  $(".p1Roll").click(function(event){
-    event.preventDefault();
-      player1.roll();
-
-      if (player1.turnscore === 0){
-        $("#player-1").hide();
-        $("#player-2").show();
-      }
-      $('.p1Score').text(player1.turnscore);
-      console.log(player1.turnscore);
-      player1.serialize();
-      console.log(player1);
-  })
-  $(".p1Hold").click(function(event){
-    event.preventDefault();
-    player1.serialize(player1.turnscore);
-    player1.addup(player1.scorearray);
-    $("#player-1").hide();
-    $("#player-2").show();
-    $(".p1Game").text(player1.addup);
-    console.log(player1);
-  })
-
-  $(".p2Roll").click(function(event){
-    event.preventDefault();
-      player2.roll();
-    if (player2Score === 0){
-      $("#player-2").hide();
-      $("#player-1").show();
-    }
-    $('.p2Score').text(player2Score);
-  })
-  $(".p2Hold").click(function(event){
-    event.preventDefault();
-    hold2();
-    totalScore2(player2Overall);
-    $("#player-2").hide();
-    $("#player-1").show();
-    $(".p2Game").text(player2Total);
-  })
-});
