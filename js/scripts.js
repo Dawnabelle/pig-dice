@@ -80,7 +80,7 @@ $(document).ready(function(){
     $(".p2Score").text("0")
     $(".p2Game").text(player2.totalscore);
     if (player2.totalscore >= 100) {
-      alert("Congratulations Player 1!");
+      alert("Congratulations Player 2!");
     }
     console.log(player2);
   })
