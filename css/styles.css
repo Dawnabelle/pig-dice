@@ -1,4 +1,18 @@
 #player-2{
   display:none;
-  
+}
+body{
+  background-image: url(../img/pig.jpg);
+  background-repeat: no-repeat;
+  background-position: left bottom;
+}
+.jumbotron{
+  background-color: rgb(200, 200, 200,0.50);
+  text-align: center;
+  padding: 10px;
+}
+img{
+  text-align: right;
+  position: static;
+  max-height: 250px;
 }

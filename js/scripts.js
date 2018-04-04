@@ -1,7 +1,10 @@
+// back end logic
 var player1Score = 0;
 var player2Score = 0;
 var player1Overall = [];
 var player2Overall = [];
+var player1Total = 0;
+var player2Total = 0;
 
 function Player (name, score){
   this.name = name;
@@ -36,6 +39,20 @@ function hold2() {
     player2Score = 0;
 }
 
+function totalScore1(array) {
+  player1Total = 0;
+array.forEach(function (value){
+  player1Total += value;
+  });
+}
+
+function totalScore2(array) {
+  player2Total = 0;
+array.forEach(function (value){
+  player2Total += value;
+  });
+}
+// ui logic
 $(document).ready(function(){
   $(".p1Roll").click(function(event){
     event.preventDefault();
@@ -45,15 +62,16 @@ $(document).ready(function(){
         $("#player-2").show();
       }
       $('.p1Score').text(player1Score);
-
   })
   $(".p1Hold").click(function(event){
     event.preventDefault();
     hold1();
+    totalScore1(player1Overall);
     $("#player-1").hide();
     $("#player-2").show();
-    console.log(player1Overall);
+    $(".p1Game").text(player1Total);
   })
+
   $(".p2Roll").click(function(event){
     event.preventDefault();
     roll2();
@@ -66,8 +84,9 @@ $(document).ready(function(){
   $(".p2Hold").click(function(event){
     event.preventDefault();
     hold2();
+    totalScore2(player2Overall);
     $("#player-2").hide();
     $("#player-1").show();
-    console.log(player2Overall);
+    $(".p2Game").text(player2Total);
   })
 });
