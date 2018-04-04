@@ -6,52 +6,74 @@ var player2Overall = [];
 var player1Total = 0;
 var player2Total = 0;
 
-function Player (name, score){
+function Player (name, turnscore, array, totalscore){
   this.name = name;
-  this.score = score;
+  this.turnscore = turnscore;
+  this.array = array;
+  this.totalscore = totalscore;
 }
 
-function roll1() {
- var result = Math.floor((Math.random() * 6) + 1);
- if (result === 1){
-   player1Score = 0;
- }else {
-   player1Score += result;
- }
+Player.prototype.roll = function() {
+  var result = Math.floor((Math.random() * 6) + 1);
+   if (result === 1){
+     Player.turnscore = 0;
+   }else {
+     Player.turnscore += result;
 }
 
-function roll2() {
- var result = Math.floor((Math.random() * 6) + 1);
- if (result === 1){
-   player2Score = 0;
- }else {
-   player2Score += result;
- }
+Player.prototype.serialize = function(number) {
+  this.array.push(this.turnscore);
+    this.turnscore = 0;
 }
 
-function hold1() {
-  player1Overall.push(player1Score);
-  player1Score = 0;
+Player.prototype.addup = function(array){
+  this.toalscore = 0;
+  array.forEach(function (value){
+    this.totalscore += value;
+    });  
 }
 
-function hold2() {
-  player2Overall.push(player2Score);
-    player2Score = 0;
-}
-
-function totalScore1(array) {
-  player1Total = 0;
-array.forEach(function (value){
-  player1Total += value;
-  });
-}
-
-function totalScore2(array) {
-  player2Total = 0;
-array.forEach(function (value){
-  player2Total += value;
-  });
-}
+// function roll1() {
+//  var result = Math.floor((Math.random() * 6) + 1);
+//  if (result === 1){
+//    player1Score = 0;
+//  }else {
+//    player1Score += result;
+//  }
+// }
+//
+// function roll2() {
+//  var result = Math.floor((Math.random() * 6) + 1);
+//  if (result === 1){
+//    player2Score = 0;
+//  }else {
+//    player2Score += result;
+//  }
+// }
+//
+// function hold1() {
+//   player1Overall.push(player1Score);
+//   player1Score = 0;
+// }
+//
+// function hold2() {
+//   player2Overall.push(player2Score);
+//     player2Score = 0;
+// }
+//
+// function totalScore1(array) {
+//   player1Total = 0;
+// array.forEach(function (value){
+//   player1Total += value;
+//   });
+// }
+//
+// function totalScore2(array) {
+//   player2Total = 0;
+// array.forEach(function (value){
+//   player2Total += value;
+//   });
+// }
 // ui logic
 $(document).ready(function(){
   $(".p1Roll").click(function(event){
