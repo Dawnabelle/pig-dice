@@ -1,6 +1,7 @@
 
 var player1 = new Player("Player1", []);
 var player2 = new Player("Player2", []);
+var win = false;
 
 function Player (name, scorearray){
   this.name = name;
@@ -54,6 +55,9 @@ $(document).ready(function(){
     $("#player-2").show();
     $(".p1Score").text("0")
     $(".p1Game").text(player1.totalscore);
+    if (player1.totalscore >= 100) {
+      alert("Congratulations Player 1!");
+    }
       console.log(player1);
   })
 
@@ -75,8 +79,11 @@ $(document).ready(function(){
     $("#player-1").show();
     $(".p2Score").text("0")
     $(".p2Game").text(player2.totalscore);
+    if (player2.totalscore >= 100) {
+      alert("Congratulations Player 1!");
+    }
     console.log(player2);
-  })  
+  })
 });
 
 // back end logic
