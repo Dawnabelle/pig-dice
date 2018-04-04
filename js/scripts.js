@@ -1,36 +1,39 @@
 // back end logic
-var player1Score = 0;
-var player2Score = 0;
-var player1Overall = [];
-var player2Overall = [];
-var player1Total = 0;
-var player2Total = 0;
+// var player1Score = 0;
+// var player2Score = 0;
+// var player1Overall = [];
+// var player2Overall = [];
+// var player1Total = 0;
+// var player2Total = 0;
+var player1 = new Player("Player1", []);
+var player2 = new Player("Player2", []);
 
-function Player (name, turnscore, array, totalscore){
+function Player (name, scorearray){
   this.name = name;
-  this.turnscore = turnscore;
-  this.array = array;
-  this.totalscore = totalscore;
+  this.turnscore = 0;
+  this.scorearray = scorearray;
+  this.totalscore = 0;
 }
 
 Player.prototype.roll = function() {
   var result = Math.floor((Math.random() * 6) + 1);
    if (result === 1){
-     Player.turnscore = 0;
+     this.turnscore = 0;
    }else {
-     Player.turnscore += result;
-}
+     this.turnscore += result;
+   }
+ }
 
 Player.prototype.serialize = function(number) {
-  this.array.push(this.turnscore);
+  this.scorearray.push(this.turnscore);
     this.turnscore = 0;
 }
 
 Player.prototype.addup = function(array){
-  this.toalscore = 0;
-  array.forEach(function (value){
+  this.totalscore = 0;
+  array.forEach(function (value) {
     this.totalscore += value;
-    });  
+  });
 }
 
 // function roll1() {
@@ -78,25 +81,30 @@ Player.prototype.addup = function(array){
 $(document).ready(function(){
   $(".p1Roll").click(function(event){
     event.preventDefault();
-      roll1();
-      if (player1Score === 0){
+      player1.roll();
+
+      if (player1.turnscore === 0){
         $("#player-1").hide();
         $("#player-2").show();
       }
-      $('.p1Score').text(player1Score);
+      $('.p1Score').text(player1.turnscore);
+      console.log(player1.turnscore);
+      player1.serialize();
+      console.log(player1);
   })
   $(".p1Hold").click(function(event){
     event.preventDefault();
-    hold1();
-    totalScore1(player1Overall);
+    player1.serialize(player1.turnscore);
+    player1.addup(player1.scorearray);
     $("#player-1").hide();
     $("#player-2").show();
-    $(".p1Game").text(player1Total);
+    $(".p1Game").text(player1.addup);
+    console.log(player1);
   })
 
   $(".p2Roll").click(function(event){
     event.preventDefault();
-    roll2();
+      player2.roll();
     if (player2Score === 0){
       $("#player-2").hide();
       $("#player-1").show();
